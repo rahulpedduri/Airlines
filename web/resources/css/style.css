@@ -1,0 +1,59 @@
+/* 
+    Document   : style
+    Created on : Feb 12, 2013, 8:56:27 PM
+    Author     : Jagan
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+
+form{
+    margin:10em auto;
+    background:rgba(255,255,255,0.6);
+    border:8px solid #eee;
+    width:450px;
+    height:auto;
+    border-radius:5px;
+    box-shadow:0 0 10px #4e707c;
+    text-align:left;
+    position:relative;
+}
+
+form div{
+    margin:.5em 25px;
+    background:#eee;
+    padding:4px;
+    border-radius:3px;
+    text-align:right;
+    position:relative;
+    font:22px Segoe UI;
+}
+
+form div.submit{
+    background:none;
+    margin:1em 25px;
+    text-align:center;
+}
+form label{
+    float:left;
+    line-height:30px;
+    padding-left:10px;
+}
+body{
+background-image:url('../img/airlines2.jpg');
+background-repeat:no-repeat;
+/*background-position:center;*/
+}
+#ui-datepicker-div {
+background: #e5e5e5;
+}
+button,input[type='submit'],input[type='reset'],input[type='button']{
+    font-size: inherit;
+}
+table {
+font-size: large;
+}
+

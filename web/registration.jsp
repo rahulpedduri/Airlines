@@ -17,8 +17,8 @@
         <script type="text/javascript" src="resources/jquery/jquery-ui-1.10.0.custom/js/jquery-1.9.0.js" ></script>
         <script type="text/javascript" src="resources/jquery/jquery-ui-1.10.0.custom/js/jquery-ui-1.10.0.custom.js" ></script>
         <script>
-            $(document).ready(function(){
-            $("#formreg").validate({
+            \$(document).ready(function(){
+            \$("#formreg").validate({
                 rules: {
                     firstname: "required",
                     lastname: "required"
@@ -28,31 +28,32 @@
         </script>
     </head>
     <body>
+        <h3 class="error reg">${message["registration.fail"]}</h3>
         <form name ="formreg" id ="form" action="reg" method="POST" onSubmit="return requiredcheck()">
              
              <div>
              <label for="firstname">First Name</label>
-             <em>*</em><input type="text" name="firstname"/>
+             <em>*</em><input type="text" name="firstname" value="${param["firstname"]}"/>
              </div>
             
              <div> 
              <label for="lastname">Last Name</label>
-             <em>*</em><input type="text" name="lastname"/>
+             <em>*</em><input type="text" name="lastname" value="${param["lastname"]}"/>
              </div>
             
             <div>
             <label for="email">Email</label>
-            <em>*</em><input type="text" name="email"/>
+            <em>*</em><input type="text" name="email" value="${param["email"]}"/>
             </div>
             
             <div>
             <label for="phone">Phone</label>
-            <input type="text" name="phone"/>
+            <input type="text" name="phone" value="${param["phone"]}"/>
             </div>
             
             <div>
             <label for="username">Username</label>
-            <em>*</em><input type="text" name="username"/>
+            <em>*</em><input type="text" name="username" value="${param["username"]}"/>
             </div>
             
             <div>

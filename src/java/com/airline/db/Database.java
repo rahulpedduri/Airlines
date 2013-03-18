@@ -52,8 +52,13 @@ public class Database {
             return ps;
         }
      
-     public ResultSet runPreparedStatement(PreparedStatement ps) throws SQLException{
+     public ResultSet runPreparedStatementQuery(PreparedStatement ps) throws SQLException{
          rs= ps.executeQuery();
          return rs;
      }
+     public int runPreparedStatementUpdate(PreparedStatement ps) throws SQLException{
+         int ret= ps.executeUpdate();
+         return ret;
+     }
+     
 }

@@ -4,29 +4,24 @@
  */
 package com.airline.beans;
 
-import com.airline.exceptions.LoginException;
-import com.airline.exceptions.PropertiesNotFoundException;
 import com.airline.db.ConnectionParameters;
 import com.airline.db.Database;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletContext;
 
 /**
- *This class deals with interfacing the servlets from the data.
- * Behind the scene complexity in handling access to the file is dealt in this class.
- * File used: \\data\\data.properties
+ * This class deals with interfacing the servlets from the data. Behind the
+ * scene complexity in handling access to the file is dealt in this class. File
+ * used: \\data\\data.properties
+ *
  * @author Phani Rahul
- * 
+ *
  */
 public class User {
 
@@ -37,69 +32,92 @@ public class User {
     private String lastName;
     private String phone;
     private String email;
- 
-    private final String LOGIN_QUERY="Select * from login where username=? and password=?";
+    private static final String LOGIN_QUERY = "Select * from login where username=? and password=?";
+    private static final String CHECK_USERNAME_QUERY = "Select * from login where username=?";
+    private static final String INSERT_USER_QUERY = "insert into login(username,password,first_name,last_name,phone,email)"
+            + "values(?,?,?,?,?,?)";
     private Database db;
 
-    public User(ServletContext context) 
-            throws ClassNotFoundException, SQLException, 
+    public User(ServletContext context)
+            throws ClassNotFoundException, SQLException,
             InstantiationException, IllegalAccessException {
         db = Database.getConnection(ConnectionParameters.getConnectionParameters(context));
     }
+
     /**
      * checks to see if the username specified already exists.
+     *
      * @param username
      * @returntrue if the username does not already exist
      * @throws FileNotFoundException
-     * @throws IOException 
+     * @throws IOException
      */
-    public static boolean checkUsernameExists(String username,ConnectionParameters cp){
-        return false;
+    public static boolean checkUsernameExists(String username, ConnectionParameters cp)
+            throws ClassNotFoundException, SQLException, InstantiationException,
+            InstantiationException, IllegalAccessException {
+        Database db = Database.getConnection(cp);
+        PreparedStatement ps = db.getPreparedStatement(CHECK_USERNAME_QUERY);
+        ps.setString(1, username);
+        ResultSet rs = db.runPreparedStatementQuery(ps);
+        if (rs.next()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
-     * checks to see if the username and password match the details on the server
+     * checks to see if the username and password match the details on the
+     * server
+     *
      * @param username the username of the user
      * @param password the password of the user
-     * @return true if login is a success 
+     * @return true if login is a success
      *
      */
-    public boolean loginCheck(String username, String password) {
-        try {
-            PreparedStatement ps = db.getPreparedStatement(LOGIN_QUERY);
-            ps.setString(1, username);
-            ps.setString(2, password);
-            ResultSet rs = db.runPreparedStatement(ps);
-            if(rs.next()){
-                populate(rs);
-                return true;
-            }
-            else 
-                return false;
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+    public boolean loginCheck(String username, String password) throws SQLException {
+
+        PreparedStatement ps = db.getPreparedStatement(LOGIN_QUERY);
+        ps.setString(1, username);
+        ps.setString(2, password);
+        ResultSet rs = db.runPreparedStatementQuery(ps);
+        if (rs.next()) {
+            populate(rs);
+            return true;
+        } else {
+            return false;
         }
-        return false;
-    }
-    
-     private void populate(ResultSet rs) throws SQLException {
-       this.username= rs.getString("username");
-       this.password=rs.getString("password");
-       this.firstName=rs.getString("first_name");
-       this.lastName=rs.getString("last_name");
-       this.phone=rs.getString("phone");
-       this.email=rs.getString("email");
     }
 
+    private void populate(ResultSet rs) throws SQLException {
+        this.username = rs.getString("username");
+        this.password = rs.getString("password");
+        this.firstName = rs.getString("first_name");
+        this.lastName = rs.getString("last_name");
+        this.phone = rs.getString("phone");
+        this.email = rs.getString("email");
+    }
 
     /**
      * saves the user object to the properties file
-     * 
+     *
      */
-   public void save(){
-       
-   }
+    public boolean save() throws SQLException {
+        PreparedStatement ps = db.getPreparedStatement(INSERT_USER_QUERY);
+        ps.setString(1, username);
+        ps.setString(2, password);
+        ps.setString(3, firstName);
+        ps.setString(4, lastName);
+        ps.setString(5, phone);
+        ps.setString(6, email);
+        int rs = db.runPreparedStatementUpdate(ps);
+        if (rs > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public String getUsername() {
         return username;
     }
@@ -147,8 +165,4 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
-  
-  
-
-   
 }

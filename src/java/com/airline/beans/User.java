@@ -11,8 +11,6 @@ import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletContext;
 
 /**
@@ -31,9 +29,9 @@ public class User {
     private String lastName;
     private String phone;
     private String email;
-    private static final String LOGIN_QUERY = "Select * from login where username=? and password=?";
-    private static final String CHECK_USERNAME_QUERY = "Select * from login where username=?";
-    private static final String INSERT_USER_QUERY = "insert into login(username,password,first_name,last_name,phone,email)"
+    private static final String LOGIN_QUERY = "Select * from users where niner_id=? and password=?";
+    private static final String CHECK_USERNAME_QUERY = "Select * from users where niner_id=?";
+    private static final String INSERT_USER_QUERY = "insert into users(niner_id,password,first_name,last_name,phone,email)"
             + "values(?,?,?,?,?,?)";
     private Database db;
 

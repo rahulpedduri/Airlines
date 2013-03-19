@@ -87,7 +87,7 @@ public class User {
     }
 
     private void populate(ResultSet rs) throws SQLException {
-        this.username = rs.getString("username");
+        this.username = rs.getString("niner_id");
         this.password = rs.getString("password");
         this.firstName = rs.getString("first_name");
         this.lastName = rs.getString("last_name");

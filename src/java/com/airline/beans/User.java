@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 import javax.servlet.ServletContext;
 
 /**
- * This class deals with interfacing the servlets from the data. Behind the
+ * This class deals with interfacing the servlet from the data. Behind the
  * scene complexity in handling access to the file is dealt in this class. File
  * used: \\data\\data.properties
  *
@@ -25,7 +25,6 @@ import javax.servlet.ServletContext;
  */
 public class User {
 
-    public final static String DATA_FILE = "/data/data.properties";
     private String username;
     private String password;
     private String firstName;

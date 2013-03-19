@@ -31,24 +31,14 @@
                 </tr>
             </thead>
             <tbody>
+                <c:forEach var="flights" items="${list}">
                 <tr>
-                    <td>UA83</td>
-                    <td>20 Feb</td>
-                    <td>Charlotte</td>
-                    <td>New Ark</td>
-                    <td>0</td>
-                    <td>$125</td>
-                    <td><a href="view_and_book.jsp"><button type="button" value="" name="">View</button></a></td>
+                    <td><c:out value="${flights.category}"  /></td>
+                    <td><c:out value="${flights.brand}" /></td>
+                    <td><c:out value="${flights.model}" /></td>
+                    <td><c:out value="${flights.places}"  /></td>
                 </tr>
-                <tr>
-                    <td>AA147</td>
-                    <td>21 Feb</td>
-                    <td>Charlotte</td>
-                    <td>Los Angeles</td>
-                    <td>1</td>
-                    <td>$200</td>
-                    <td><a href="view_and_book.jsp"><button type="button" value="view" name="view">View</button></a></td>
-                </tr>
+                </c:forEach>
             </tbody>
         </table>
         </form>

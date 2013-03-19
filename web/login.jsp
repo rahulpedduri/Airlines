@@ -15,7 +15,6 @@
     </head>
     <body>
         
-        <h1>Login:</h1>
         <h3 class="error login">${message["login.fail"]}</h3>
         <form action="login" method="POST">
             
@@ -34,9 +33,9 @@
             <input type="submit" name="login_submit" value="Login" />
             <a href="registration.jsp" title="Not Registered?"> Register </a>
             </div>
-            
+            <h3 class="error other">${message["login.unknown"]}</h3> 
         </form>
-        <h3 class="error other">${message["login.unknown"]}</h3>
+        
 
     </body>
 </html>

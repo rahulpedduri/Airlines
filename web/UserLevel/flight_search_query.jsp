@@ -22,7 +22,7 @@
     </head>
     <body>
         <body>
-        <form name ="form" action="/Handle" method="GET">
+        <form name ="form" action="../Handle" method="GET">
             <a href="../login.jsp"><button type="button" value="logout" name="logout" align="right">Logout</button></a>
             <a href="booking_history.jsp"><button type="button" value="history" name="history">Booking History</button></a>
         

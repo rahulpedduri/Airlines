@@ -33,9 +33,9 @@
             <tbody>
                 <c:forEach var="flight" items="${list}">
                 <tr>
-                    <td><c:out value="${flight.source}"  /></td>
-                    <td><c:out value="${flight.dest}" /></td>
-                    <td><c:out value="${flight.date}" /></td>
+                    <td>${flight.source} /></td>
+                    <td>${flight.departureTime}</td>
+                    <td></td>
                     <td><c:out value="${flight.seats}"  /></td>
 		    <td><c:out value="${flight.cls}"  /></td>
                 </tr>

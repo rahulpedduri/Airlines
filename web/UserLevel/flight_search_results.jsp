@@ -38,6 +38,7 @@
                     <td></td>
                     <td>${flight.seatsTotal}</td>
 		    <td><c:out value="${flight.cls}"  /></td>
+                    <td><a href="Handle?detailed=true&flight=${flight.flightNumber}">Details</a></td>
                 </tr>
                 </c:forEach>
             </tbody>

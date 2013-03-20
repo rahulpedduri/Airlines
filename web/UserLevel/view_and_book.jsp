@@ -21,7 +21,7 @@
             <thead>
                 <tr>
                     <th>Flight Number</th>
-                    <th> UA 83 </th>
+                    <th> ${flight.flightNumber}</th>
                 </tr>
             </thead>
             <tbody>

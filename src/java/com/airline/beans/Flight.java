@@ -31,6 +31,7 @@ public class Flight {
     private String cls;
     private Database db;
     private static final String FETCH_FLIGHTS_BY_COND =  "select * from flights ";
+    private static final String GET_FLIGHT =  "select * from flights where flightnumber=?";
             /*
             "select * from flights where"
             + " source = ? and destination = ? and to_char(departure_time,'dd/mm/yyyy') = ?"
@@ -122,6 +123,27 @@ public class Flight {
             throws ClassNotFoundException, SQLException,
             InstantiationException, IllegalAccessException {
         db = Database.getConnection(ConnectionParameters.getConnectionParameters(context));
+    }
+     public Flight(ServletContext context,String flightId)
+            throws ClassNotFoundException, SQLException,
+            InstantiationException, IllegalAccessException {
+        db = Database.getConnection(ConnectionParameters.getConnectionParameters(context));
+         PreparedStatement ps = db.getPreparedStatement(GET_FLIGHT);
+         ps.setInt(1, Integer.valueOf(flightId));
+          ResultSet rs = db.runPreparedStatementQuery(ps);
+          if(rs.next()){
+            this.setFlightNumber(rs.getString("flightnumber"));
+            this.setCost(rs.getDouble("cost"));
+            this.setSeatsTotal(rs.getInt("seats_total"));
+            this.setSeatsTaken(rs.getInt("seats_taken"));
+            this.setOperator(rs.getString("operator"));
+            this.setDepartureTime(rs.getString("departure_time"));
+            this.setArrivalTime(rs.getString("arrival_time"));
+            this.setCls(rs.getString("class"));
+            this.setSource(rs.getString("source"));
+            this.setDestination(rs.getString("destination"));
+        
+        }
     }
 
     public String getCls() {

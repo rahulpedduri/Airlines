@@ -18,7 +18,9 @@ import javax.servlet.http.HttpServletResponse;
  * @author Phani Rahul
  */
 public class Handle extends HttpServlet {
-    private static final String QUERY_REULTS="UserLevel/flight_search_results.jsp";
+
+    private static final String QUERY_REULTS = "UserLevel/flight_search_results.jsp";
+    private static final String DETAILED_VIEW = "UserLevel/view_and_book.jsp";
 
     /**
      * Processes requests for both HTTP
@@ -37,20 +39,30 @@ public class Handle extends HttpServlet {
         try {
             /* TODO output your page here. You may use following sample code. */
             Object flight_search_query = request.getParameter("flight_search_submit");
+            Object detailed = request.getParameter("detailed");
+            Flight flight;
 
             if (flight_search_query != null && !((String) flight_search_query).trim().equals("")) {
                 String source = request.getParameter("source");
                 String dest = request.getParameter("dest");
-                String date=request.getParameter("date");
-                String seats=request.getParameter("seats");
-                String cls=request.getParameter("class");
-                
-                Flight flight = new Flight(getServletContext());
-                
+                String date = request.getParameter("date");
+                String seats = request.getParameter("seats");
+                String cls = request.getParameter("class");
+
+                flight = new Flight(getServletContext());
+
                 ArrayList list = flight.getFlightsByConditions(source, dest, date, seats, cls);
-                        request.setAttribute("flights", list);
-                        request.getRequestDispatcher(QUERY_REULTS).forward(request, response);
-                
+                request.setAttribute("flights", list);
+                request.getRequestDispatcher(QUERY_REULTS).forward(request, response);
+
+            }
+            if (detailed != null && !((String) detailed).trim().equals("")
+                    && ((String) detailed).trim().equalsIgnoreCase("true")) {
+                String id = request.getParameter("flight");
+                flight = new Flight(getServletContext(), id);
+                request.setAttribute("flight", flight);
+                request.getRequestDispatcher(DETAILED_VIEW).forward(request, response);
+
             }
 
 

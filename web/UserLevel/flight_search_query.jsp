@@ -70,7 +70,7 @@
             </div>
             
             <div class ="submit">
-            <button type="button" value="submit" name="flight_search_submit">submit</button>
+            <button type="submit" value="submit" name="flight_search_submit">submit</button>
             </div>
         </form>
     

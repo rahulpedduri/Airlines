@@ -4,8 +4,10 @@
  */
 package com.airline.controllers;
 
+import com.airline.beans.Flight;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author Phani Rahul
  */
 public class Handle extends HttpServlet {
+    private static final String QUERY_REULTS="flight_search_results.jsp";
 
     /**
      * Processes requests for both HTTP
@@ -42,6 +45,11 @@ public class Handle extends HttpServlet {
                 String seats=request.getParameter("seats");
                 String cls=request.getParameter("class");
                 
+                Flight flight = new Flight(getServletContext());
+                
+                ArrayList list = flight.getFlightsByConditions(source, dest, date, seats, cls);
+                        request.setAttribute("flights", list);
+                        request.getRequestDispatcher(QUERY_REULTS).forward(request, response);
                 
             }
 

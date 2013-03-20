@@ -22,19 +22,19 @@
     </head>
     <body>
         <body>
-        <form name ="form" action="reg" method="POST">
+        <form name ="form" action="/Handle" method="GET">
             <a href="../login.jsp"><button type="button" value="logout" name="logout" align="right">Logout</button></a>
             <a href="booking_history.jsp"><button type="button" value="history" name="history">Booking History</button></a>
         
             <h3>Available Flights</h3>
              <div>
              <label for="Source">Source</label>
-             <input type="text" name="firstname" class ="required"/>
+             <input type="text" name="source" class ="required"/>
              </div>
             
              <div> 
-             <label for="Destination">Destination</label>
-             <input type="text" name="lastname" class ="required"/>
+             <label for="dest">Destination</label>
+             <input type="text" name="dest" class ="required"/>
              </div>
             
             <div>
@@ -70,7 +70,7 @@
             </div>
             
             <div class ="submit">
-            <a href="flight_search_results.jsp"><button type="button" value="submit" name="submit">submit</button></a>
+            <button type="button" value="submit" name="flight_search_submit">submit</button>
             </div>
         </form>
     

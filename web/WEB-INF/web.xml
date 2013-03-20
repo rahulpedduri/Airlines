@@ -33,6 +33,10 @@
         <servlet-name>Registration</servlet-name>
         <servlet-class>com.airline.controllers.Registration</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Handle</servlet-name>
+        <servlet-class>com.airline.controllers.Handle</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -40,6 +44,10 @@
     <servlet-mapping>
         <servlet-name>Registration</servlet-name>
         <url-pattern>/reg</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Handle</servlet-name>
+        <url-pattern>/Handle</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

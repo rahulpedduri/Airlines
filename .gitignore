@@ -121,6 +121,7 @@ UpgradeLog*.XML
 =======
 *.xml
 *.properties
+nbproject/
 
 
 ############

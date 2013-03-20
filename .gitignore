@@ -118,6 +118,9 @@ UpgradeLog*.XML
 #NBAD#####
 ###########
 web.xml
+project.properties
+ant-deploy.xml
+private.properties
 
 
 ############

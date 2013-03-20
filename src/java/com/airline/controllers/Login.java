@@ -60,8 +60,7 @@ public class Login extends HttpServlet {
 
                 try {
                     user = new User(getServletContext());
-                   // System.out.println("servlet contxt: "+ getServletContext().getRealPath(User.DATA_FILE));
-                   // User.loadPropertiesFromFile(getServletContext().getRealPath(User.DATA_FILE));
+                  
                
                 }
                 catch (ClassNotFoundException ex) {
@@ -92,6 +91,7 @@ public class Login extends HttpServlet {
                     {
                       session =  request.getSession();
                       session.setAttribute("user", user);
+                      session.setAttribute("index", 0);
                       request.setAttribute("message", messages);
                      System.out.println("redirecting..");
                      response.sendRedirect(ON_SUCCESS);

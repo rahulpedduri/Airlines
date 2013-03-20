@@ -37,6 +37,14 @@
         <servlet-name>Handle</servlet-name>
         <servlet-class>com.airline.controllers.Handle</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ViewAndBook</servlet-name>
+        <servlet-class>com.airline.controllers.ViewAndBook</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Transaction</servlet-name>
+        <servlet-class>com.airline.controllers.Transaction</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -49,6 +57,14 @@
         <servlet-name>Handle</servlet-name>
         <url-pattern>/Handle</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewAndBook</servlet-name>
+        <url-pattern>/ViewAndBook</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Transaction</servlet-name>
+        <url-pattern>/Transaction</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
@@ -57,5 +73,4 @@
     <welcome-file-list>
         <welcome-file>login.jsp</welcome-file>
     </welcome-file-list>
-   
 </web-app>

@@ -44,18 +44,18 @@
         
              
              <div>
-             <label for="Source">Account Holder Name</label>
-             <input type="text" name="name" class ="required"/>
+             <label for="account_holder_name">Account Holder Name</label>
+             <input type="text" name="account_holder_name" class ="required"/>
              </div>
             
              <div> 
-             <label for="Destination">Routing Number</label>
-             <input type="text" name="dest" class ="required"/>
+             <label for="routing_number">Routing Number</label>
+             <input type="text" name="routing_number" class ="required"/>
              </div>
             
             <div>
-            <label for="date">Account Number</label>
-            <input type="text"  name="number" class ="required"/>
+            <label for="account_number">Account Number</label>
+            <input type="text"  name="account_number" class ="required"/>
             </div>
             
             <a href="transaction_confirmation.jsp"><button type="button" value="confirm" name="confirm">confirm</button></a>

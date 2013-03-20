@@ -31,12 +31,13 @@
                 </tr>
             </thead>
             <tbody>
-                <c:forEach var="flights" items="${list}">
+                <c:forEach var="flight" items="${list}">
                 <tr>
-                    <td><c:out value="${flights.category}"  /></td>
-                    <td><c:out value="${flights.brand}" /></td>
-                    <td><c:out value="${flights.model}" /></td>
-                    <td><c:out value="${flights.places}"  /></td>
+                    <td><c:out value="${flight.source}"  /></td>
+                    <td><c:out value="${flight.dest}" /></td>
+                    <td><c:out value="${flight.date}" /></td>
+                    <td><c:out value="${flight.seats}"  /></td>
+		    <td><c:out value="${flight.cls}"  /></td>
                 </tr>
                 </c:forEach>
             </tbody>

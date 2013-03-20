@@ -52,26 +52,31 @@ public class Flight {
         boolean andRequired=false;
         if(source != null && !source.equalsIgnoreCase("")){
             if(andRequired) query += " and ";
+            else query += " where ";
             query += " source = ? ";
             andRequired=true;
         }
         if(dest != null && !dest.equalsIgnoreCase("")){
             if(andRequired) query += " and ";
+            else query += " where ";
             query += " destination = ? ";
              andRequired=true;
         }
         if(date != null && !date.equalsIgnoreCase("")){
             if(andRequired) query += " and ";
+            else query += " where ";
             query += " to_char(departure_time,'dd/mm/yyyy') = ? ";
              andRequired=true;
         }
         if(seats != null && !seats.equalsIgnoreCase("")){
             if(andRequired) query += " and ";
+            else query += " where ";
             query += " (seats_total-seats_taken) > ? ";
              andRequired=true;
         }
         if(cls != null && !cls.equalsIgnoreCase("")){
             if(andRequired) query += " and ";
+            else query += " where ";
             query += " class = ? ";
              andRequired=true;
         }

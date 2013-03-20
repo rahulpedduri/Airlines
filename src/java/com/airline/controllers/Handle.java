@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author Phani Rahul
  */
 public class Handle extends HttpServlet {
-    private static final String QUERY_REULTS="flight_search_results.jsp";
+    private static final String QUERY_REULTS="UserLevel/flight_search_results.jsp";
 
     /**
      * Processes requests for both HTTP

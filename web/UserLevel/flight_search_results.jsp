@@ -3,7 +3,7 @@
     Created on : Feb 10, 2013, 4:01:20 PM
     Author     : Jagan
 --%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -31,12 +31,12 @@
                 </tr>
             </thead>
             <tbody>
-                <c:forEach var="flight" items="${list}">
+               <c:forEach var="flight" items="${flights}">
                 <tr>
-                    <td>${flight.source} /></td>
+                    <td></td>
                     <td>${flight.departureTime}</td>
                     <td></td>
-                    <td><c:out value="${flight.seats}"  /></td>
+                    <td>${flight.seatsTotal}</td>
 		    <td><c:out value="${flight.cls}"  /></td>
                 </tr>
                 </c:forEach>

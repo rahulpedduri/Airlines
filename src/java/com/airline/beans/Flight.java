@@ -94,6 +94,7 @@ public class Flight {
         }if(cls != null && !cls.equalsIgnoreCase("")){
             ps.setString(columnIndex++, cls);
         }
+        
         ResultSet rs = db.runPreparedStatementQuery(ps);
         Flight flight;
         ArrayList<Flight> flights = new ArrayList<Flight>();

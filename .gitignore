@@ -118,7 +118,8 @@ UpgradeLog*.XML
 #NBAD#####
 ###########
 web.xml
-
+*.xml
+*.properties
 
 ############
 ## Windows

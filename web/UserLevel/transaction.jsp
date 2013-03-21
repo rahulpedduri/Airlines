@@ -20,23 +20,22 @@
             <thead>
                 <tr>
                     <th>Flight Number</th>
-                    <th>Flight Date</th>
-                    <th>Departure</th>
-                    <th>Arrival</th>
-                    <th>Stops</th>
+                    <th>Airlines</th>
+                    <th>Origin</th>
+                    <th>Destination</th>
                     <th>Cost</th>
+                    <th>Class</th>
                    
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>UA83</td>
-                    <td>20 Feb</td>
-                    <td>Charlotte</td>
-                    <td>New Ark</td>
-                    <td>0</td>
-                    <td>$125</td>
-                  
+                    <td>${flight.flightNumber}</td>
+                    <td>${flight.operator}</td>
+                    <td>${flight.source}</td>
+                    <td>${flight.destination}</td>
+		    <td>${flight.cost}</td>
+		    <td>${flight.cls}</td>
                 </tr>
             </tbody>
         </table>

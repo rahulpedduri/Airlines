@@ -32,6 +32,8 @@ public class Flight {
     private Database db;
     private static final String FETCH_FLIGHTS_BY_COND =  "select * from flights ";
     private static final String GET_FLIGHT =  "select * from flights where flightnumber=?";
+     private static final String UPDATE_FLIGHTS =  "Update flights set seats_taken = ? where flightnumber=?";
+      private static final String CHECK_AVAILABILITY =  "select seats_total,seats_taken from flights where flightnumber=?";
             /*
             "select * from flights where"
             + " source = ? and destination = ? and to_char(departure_time,'dd/mm/yyyy') = ?"
@@ -42,12 +44,37 @@ public class Flight {
 //        o Reads flight details from the database
 //        o Fetches all flights with given parameters
 //        o Fetches details of individual flights  String source = request.getParameter("source");
-    
-    public void flightUpdateBookings(int seatsBooked) throws SQLException{
+    private static int seats_taken_for_update=0;
+    public static void flightUpdateBookings(int seatsBooked, String flightNumber, ServletContext ctx) 
+            throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException{
+       Database db = Database.getConnection(ConnectionParameters.getConnectionParameters(ctx));
+       if(seatsAvailable(seatsBooked, flightNumber, db)){
+       PreparedStatement ps = db.getPreparedStatement(UPDATE_FLIGHTS);
+       ps.setInt(1, seats_taken_for_update+seatsBooked);
+        ps.setLong(2, Long.valueOf(flightNumber));
+        int rs= db.runPreparedStatementUpdate(ps);
+       }
         
     }
-    public boolean seatsAvailable(int seats){
-        return false;
+    public static boolean seatsAvailable(int seats,String flightNumber, Database db) throws SQLException{
+        if( seats<= getseatsAvailable(flightNumber, db)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    public static int getseatsAvailable(String flightNumber, Database db) throws SQLException{
+        PreparedStatement ps = db.getPreparedStatement(CHECK_AVAILABILITY);
+        ps.setLong(1, Long.valueOf(flightNumber));
+        ResultSet rs = db.runPreparedStatementQuery(ps);
+        int available=0;
+        if(rs.next()){
+            int total = rs.getInt("seats_total");
+            int taken = rs.getInt("seats_taken");
+            seats_taken_for_update=taken;
+            available = total-taken;
+        }
+        return available;
     }
     
     public ArrayList<Flight> getFlightsByConditions(

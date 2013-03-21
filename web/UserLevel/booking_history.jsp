@@ -28,19 +28,21 @@
                     <th>Arrival</th>
                     <th>Stops</th>
                     <th>Cost</th>
-                    <th>Ticket Number</th>
+                    <th>Booking ID</th>
                 </tr>
             </thead>
             <tbody>
+                <c:forEach var="booking" items="${sessionScope[name]}">
                 <tr>
-                    <td>UA83</td>
-                    <td>20 Feb</td>
-                    <td>Charlotte</td>
-                    <td>New Ark</td>
-                    <td>0</td>
-                    <td>$125</td>
-                    <td>C7PC3N</td>
+                    <td>${booking.flightNumber}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+		    <td></td>
+		    <td>${booking.totalCost}</td>
+                    <td>${booking.bookingId}</td>
                 </tr>
+                </c:forEach>
             </tbody>
         </table>
         

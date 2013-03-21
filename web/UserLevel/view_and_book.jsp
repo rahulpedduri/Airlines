@@ -95,7 +95,7 @@
             </table>
 
             <div class ="submit">
-                <a href="transaction.jsp"><button type="button" value="Select" name="select">select</button></a>
+                <button type="submit" value="Select" name="select">select</button>
                 <a href="flight_search_results.jsp"><button type="button" value="Back" name="back">back</button></a>
                 <a href="flight_search_query.jsp"><button type="button" value="Home" name="home">home</button></a>
             </div>

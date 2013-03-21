@@ -24,7 +24,7 @@
 
     <body>
 
-        <form name ="form" action="../ViewAndBook" method="POST"> 
+        <form name ="form" action="ViewAndBook" method="POST"> 
             <a href="../login.jsp"><button type="button" value="logout" name="logout" align="right">Logout</button></a>    
             <h3>View Flights:</h3>
             <table border="1" cellpadding="10" align="center">
@@ -93,9 +93,10 @@
                     <td id="total_cost"></td>
                 </tr>   
             </table>
-
+                <input type="hidden" name="cost" value="${flight.cost}" />
+                <input type="hidden" name="id" value="${flight.flightNumber}" />
             <div class ="submit">
-                <button type="submit" value="Select" name="select">select</button>
+                <button type="submit" value="Select" name="view_and_book_submit" >select</button>
                 <a href="flight_search_results.jsp"><button type="button" value="Back" name="back">back</button></a>
                 <a href="flight_search_query.jsp"><button type="button" value="Home" name="home">home</button></a>
             </div>

@@ -3,7 +3,7 @@
     Created on : Feb 12, 2013, 4:02:06 PM
     Author     : Phani Rahul
 --%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -28,7 +28,11 @@
                    
                 </tr>
             </thead>
+           
+           
             <tbody>
+                 <c:set var="name" value="bookings" />
+                <c:forEach items="${sessionScope[name]}" var="flight">
                 <tr>
                     <td>${flight.flightNumber}</td>
                     <td>${flight.operator}</td>
@@ -37,6 +41,7 @@
 		    <td>${flight.cost}</td>
 		    <td>${flight.cls}</td>
                 </tr>
+                </c:forEach>
             </tbody>
         </table>
                 

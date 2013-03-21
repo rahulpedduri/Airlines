@@ -21,6 +21,7 @@ import javax.servlet.http.HttpSession;
  */
 public class ViewAndBook extends HttpServlet {
 
+    private static final String TRANSACTION="UserLevel/transaction.jsp";
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -36,6 +37,11 @@ public class ViewAndBook extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
+            HttpSession session = request.getSession();
+            User user = (User)session.getAttribute("user");
+            if(user == null){
+                response.sendRedirect("login.jsp");
+            }
              Object submit = request.getParameter("view_and_book_submit");
 
             if (submit != null && !((String) submit).trim().equals("")) {
@@ -45,9 +51,9 @@ public class ViewAndBook extends HttpServlet {
                 double totalCost=0;
                if (seats != null && !((String) seats).trim().equals("") 
                        && cost != null && !((String) cost).trim().equals("")) {
-                 totalCost= Integer.valueOf(cost)*Double.valueOf(seats);
+                 totalCost= Double.valueOf(cost)*Integer.valueOf(seats);
                }
-                HttpSession session = request.getSession();
+                
                 Bookings booking = new Bookings(getServletContext());
                 booking.setFlightNumber(flightNumber);
                 booking.setSeats(seats);
@@ -61,7 +67,8 @@ public class ViewAndBook extends HttpServlet {
                 }
                 bookingList.add(booking);
                 session.setAttribute("bookings", bookingList);
-                
+                response.sendRedirect(TRANSACTION);
+
             }
         }catch(Exception e){
             System.out.println("EXCEPTION: "+e);

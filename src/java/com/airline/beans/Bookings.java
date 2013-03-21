@@ -34,15 +34,15 @@ public class Bookings {
     private static final String SAVE_TO_DATABASE = "INSERT INTO bookings "
             + "(BOOKINGID, niner_id, FLIGHTID, DATE, NUMBEROFSEATS, ACCOUNTID, TOTALCOST) "
             + "	VALUES (?, ?, ?, sysdate, ?, ?, ?)";
-    private static final String NEXT_SEQ ="select booking_sequence_no.NEXTVAL from dual";
+    private static final String NEXT_SEQ = "select booking_sequence_no.NEXTVAL from dual";
 
     public boolean save() throws SQLException {
         PreparedStatement ps = db.getPreparedStatement(SAVE_TO_DATABASE);
 
         Statement st = db.getConn().createStatement();
         ResultSet r = st.executeQuery(NEXT_SEQ);
-        r.next() ;
-    int nextValue = r.getInt(1) ;
+        r.next();
+        int nextValue = r.getInt(1);
 
         ps.setLong(1, nextValue);
         ps.setString(2, username);
@@ -58,39 +58,36 @@ public class Bookings {
         }
     }
 
-    public ArrayList<Bookings> getBookingHistory(String username) {
+    public ArrayList<Bookings> getBookingHistory(String username) throws SQLException {
+        PreparedStatement ps = db.getPreparedStatement(GET_BOOKING_HISTORY);
+        ps.setString(1, username);
+        ResultSet rs = db.runPreparedStatementQuery(ps);
+        Bookings booking;
+        ArrayList<Bookings> bookingHistory;
+        bookingHistory = new ArrayList<Bookings>();
+        while (rs.next()) {
+            booking = new Bookings();
+            //BOOKINGID, "niner_id", FLIGHTID, "DATE", NUMBEROFSEATS, ACCOUNTID, TOTALCOST) 
+            booking.setAccountId(rs.getString("ACCOUNTID"));
+            booking.setBookingId(rs.getString("BOOKINGID"));
+            booking.setDate(rs.getString("DATE"));
+            booking.setFlightNumber(rs.getString("FLIGHTID"));
+            booking.setSeats(rs.getString("NUMBEROFSEATS"));
+            booking.setTotalCost(rs.getDouble("TOTALCOST"));
+            booking.setSeats(rs.getString("niner_id"));
+
+            bookingHistory.add(booking);
+        }
         return null;
     }
 
-    public Bookings() {
-    }
+    public Bookings() {}
 
     public Bookings(ServletContext context)
             throws ClassNotFoundException, SQLException,
             InstantiationException, IllegalAccessException {
         db = Database.getConnection(ConnectionParameters.getConnectionParameters(context));
     }
-//     public Bookings(ServletContext context,String flightId)
-//            throws ClassNotFoundException, SQLException,
-//            InstantiationException, IllegalAccessException {
-//        db = Database.getConnection(ConnectionParameters.getConnectionParameters(context));
-//         PreparedStatement ps = db.getPreparedStatement(GET_FLIGHT);
-//         ps.setInt(1, Integer.valueOf(flightId));
-//          ResultSet rs = db.runPreparedStatementQuery(ps);
-//          if(rs.next()){
-//            this.setFlightNumber(rs.getString("flightnumber"));
-//            this.setCost(rs.getDouble("cost"));
-//            this.setSeatsTotal(rs.getInt("seats_total"));
-//            this.setSeatsTaken(rs.getInt("seats_taken"));
-//            this.setOperator(rs.getString("operator"));
-//            this.setDepartureTime(rs.getString("departure_time"));
-//            this.setArrivalTime(rs.getString("arrival_time"));
-//            this.setCls(rs.getString("class"));
-//            this.setSource(rs.getString("source"));
-//            this.setDestination(rs.getString("destination"));
-//        
-//        }
-//    }
 
     public String getFlightNumber() {
         return flightNumber;
@@ -101,7 +98,7 @@ public class Bookings {
     }
 
     public String getSeats() {
-        return seats+"";
+        return seats + "";
     }
 
     public void setSeats(String seats) {

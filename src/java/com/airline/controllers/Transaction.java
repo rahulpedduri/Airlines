@@ -44,6 +44,8 @@ public class Transaction extends HttpServlet {
              bookings model.
              o Redirects user to the Transaction Confirmation jsp page with flight details and 
              transaction status (Success/Failure). */
+            
+            
         } finally {
             out.close();
         }

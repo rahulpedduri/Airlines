@@ -32,14 +32,14 @@
            
             <tbody>
                  <c:set var="name" value="bookings" />
-                <c:forEach items="${sessionScope[name]}" var="flight">
+                <c:forEach items="${sessionScope[name]}" var="booking">
                 <tr>
-                    <td>${flight.flightNumber}</td>
-                    <td>${flight.operator}</td>
-                    <td>${flight.source}</td>
-                    <td>${flight.destination}</td>
-		    <td>${flight.cost}</td>
-		    <td>${flight.cls}</td>
+                    <td>${booking.flightNumber}</td>
+                    <td>${booking.operator}</td>
+                    <td>${booking.source}</td>
+                    <td>${booking.destination}</td>
+		    <td>${booking.cost}</td>
+		    <td>${booking.cls}</td>
                 </tr>
                 </c:forEach>
             </tbody>

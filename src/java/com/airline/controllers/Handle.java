@@ -5,6 +5,7 @@
 package com.airline.controllers;
 
 import com.airline.beans.Flight;
+import com.airline.beans.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -37,7 +39,11 @@ public class Handle extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            /* TODO output your page here. You may use following sample code. */
+            HttpSession session = request.getSession();
+            User user = (User)session.getAttribute("user");
+            if(user == null){
+                response.sendRedirect("login.jsp");
+            }
             Object flight_search_query = request.getParameter("flight_search_submit");
             Object detailed = request.getParameter("detailed");
             Flight flight;

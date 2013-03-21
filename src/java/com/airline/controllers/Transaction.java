@@ -4,12 +4,14 @@
  */
 package com.airline.controllers;
 
+import com.airline.beans.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -44,7 +46,11 @@ public class Transaction extends HttpServlet {
              bookings model.
              o Redirects user to the Transaction Confirmation jsp page with flight details and 
              transaction status (Success/Failure). */
-            
+            HttpSession session = request.getSession();
+            User user = (User)session.getAttribute("user");
+            if(user == null){
+                response.sendRedirect("login.jsp");
+            }
             
             
             

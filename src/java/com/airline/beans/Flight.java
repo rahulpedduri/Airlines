@@ -42,6 +42,14 @@ public class Flight {
 //        o Reads flight details from the database
 //        o Fetches all flights with given parameters
 //        o Fetches details of individual flights  String source = request.getParameter("source");
+    
+    public void flightUpdateBookings(int seatsBooked) throws SQLException{
+        
+    }
+    public boolean seatsAvailable(int seats){
+        return false;
+    }
+    
     public ArrayList<Flight> getFlightsByConditions(
             String source,
             String dest,

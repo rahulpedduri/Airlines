@@ -54,7 +54,13 @@ public class ViewAndBook extends HttpServlet {
                 booking.setTotalCost(totalCost);
                 booking.setUsername(((User)session.getAttribute("user")).getUsername());
                 ArrayList bookingList = (ArrayList)session.getAttribute("bookings");
+                boolean alreadyThere=true;
+                if(bookingList == null){
+                    alreadyThere=false;
+                    bookingList = new ArrayList();
+                }
                 bookingList.add(booking);
+                session.setAttribute("bookings", bookingList);
                 
             }
         }catch(Exception e){

@@ -15,7 +15,7 @@
     <body>
         
         <form name ="form" action="reg" method="POST">
-        <a href="../login.jsp"><button type="button" value="logout" name="logout" align="right">Logout</button></a>    
+        <a href="Login?logout=true><button type="button" value="logout" name="logout" align="right">Logout</button></a>    
         <table border="1" cellpadding="2" align="center" bgcolor="#FFFAF0">
             <thead>
                 <tr>

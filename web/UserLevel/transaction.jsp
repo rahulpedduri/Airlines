@@ -35,11 +35,7 @@
                 <c:forEach items="${sessionScope[name]}" var="booking">
                 <tr>
                     <td>${booking.flightNumber}</td>
-                    <td>${booking.operator}</td>
-                    <td>${booking.source}</td>
-                    <td>${booking.destination}</td>
-		    <td>${booking.cost}</td>
-		    <td>${booking.cls}</td>
+                    <%-- TODO remaining values to be populated --%>
                 </tr>
                 </c:forEach>
             </tbody>
@@ -62,7 +58,7 @@
             <input type="text"  name="account_number" class ="required"/>
             </div>
             
-            <a href="transaction_confirmation.jsp"><button type="button" value="confirm" name="confirm">confirm</button></a>
+           <button type="submit" value="confirm" name="transaction_submit">confirm</button>
             <a href="flight_search_query.jsp"><button type="button" value="cancel" name="cancel">cancel</button></a>
             
             

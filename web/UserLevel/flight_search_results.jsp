@@ -22,22 +22,23 @@
             <thead>
                 <tr>
                     <th>Flight Number</th>
-                    <th>Flight Date</th>
-                    <th>Departure</th>
-                    <th>Arrival</th>
-                    <th>Stops</th>
+                    <th>Airlines</th>
+                    <th>Origin</th>
+                    <th>Destination</th>
                     <th>Cost</th>
+                    <th>Class</th>
                     <th>Detail</th>
                 </tr>
             </thead>
             <tbody>
                <c:forEach var="flight" items="${flights}">
                 <tr>
-                    <td></td>
-                    <td>${flight.departureTime}</td>
-                    <td></td>
-                    <td>${flight.seatsTotal}</td>
-		    <td><c:out value="${flight.cls}"  /></td>
+                    <td>${flight.flightNumber}</td>
+                    <td>${flight.operator}</td>
+                    <td>${flight.source}</td>
+                    <td>${flight.destination}</td>
+		    <td>${flight.cost}</td>
+		    <td>${flight.cls}</td>
                     <td><a href="Handle?detailed=true&flight=${flight.flightNumber}">Details</a></td>
                 </tr>
                 </c:forEach>

@@ -50,13 +50,16 @@ public class Login extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
+            boolean cookieMade=false;
             Cookie[] cookies = request.getCookies();
             for (int i = 0; i < cookies.length; i++) {
                 Cookie cookie = cookies[i];
                 if ("user".equals(cookie.getName())) {
+                    cookieMade=true;
                     setSession(request,response, cookie.getValue(), true);
                 }
             }
+          
             Object login = request.getParameter("login_submit");
             Object logout = request.getParameter("logout");
 
@@ -95,6 +98,8 @@ public class Login extends HttpServlet {
                         return;
                     } else {
                             setSession(request, response, username,false);
+                            Cookie userCookie = new Cookie("user", user.getUsername());
+                            response.addCookie(userCookie);
                         request.setAttribute("message", messages);
 
                         System.out.println("redirecting..");

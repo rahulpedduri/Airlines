@@ -34,6 +34,7 @@ public class Registration extends HttpServlet {
     private String email;
     private User user;
     private HashMap messages;
+    private static final double INITIAL_BALANCE=10000;
 
     /**
      * Processes requests for both HTTP. This especially handles the
@@ -63,6 +64,10 @@ public class Registration extends HttpServlet {
                 lastName = request.getParameter("lastname");
                 email = request.getParameter("email");
                 phone = request.getParameter("phone");
+                
+                String account_no = request.getParameter("account_no");
+                String holder_name = request.getParameter("holder_name");
+                String routing_no = request.getParameter("routing_no");
 
                 messages = new HashMap();
 

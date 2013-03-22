@@ -66,6 +66,22 @@
             <em>*</em><input type="password" name="password1"/>
             </div>
             
+            
+            <div>
+            <label for="account_no">Retype Password</label>
+            <em>*</em><input type="password" name="password1"/>
+            </div>
+            
+            <div>
+            <label for="holder_name">Retype Password</label>
+            <em>*</em><input type="password" name="password1"/>
+            </div>
+            
+            <div>
+            <label for="routing_no">Retype Password</label>
+            <em>*</em><input type="password" name="password1"/>
+            </div>
+            
             <div class ="submit">
             <input type="submit" name="registration_submit" value="Submit"/>
             </div>

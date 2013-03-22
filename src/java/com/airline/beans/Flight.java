@@ -48,7 +48,7 @@ public class Flight {
     public static void flightUpdateBookings(int seatsBooked, String flightNumber, ServletContext ctx) 
             throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException{
        Database db = Database.getConnection(ConnectionParameters.getConnectionParameters(ctx));
-       if(seatsAvailable(seatsBooked, flightNumber, db)){
+       if(seatsAvailable(seatsBooked, flightNumber, ctx)){
        PreparedStatement ps = db.getPreparedStatement(UPDATE_FLIGHTS);
        ps.setInt(1, seats_taken_for_update+seatsBooked);
         ps.setLong(2, Long.valueOf(flightNumber));
@@ -56,14 +56,17 @@ public class Flight {
        }
         
     }
-    public static boolean seatsAvailable(int seats,String flightNumber, Database db) throws SQLException{
-        if( seats<= getseatsAvailable(flightNumber, db)){
+    public static boolean seatsAvailable(int seats,String flightNumber, ServletContext ctx) 
+            throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException{
+        if( seats<= getseatsAvailable(flightNumber, ctx)){
             return true;
         }else{
             return false;
         }
     }
-    public static int getseatsAvailable(String flightNumber, Database db) throws SQLException{
+    public static int getseatsAvailable(String flightNumber, ServletContext ctx) 
+            throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException{
+        Database db = Database.getConnection(ConnectionParameters.getConnectionParameters(ctx));
         PreparedStatement ps = db.getPreparedStatement(CHECK_AVAILABILITY);
         ps.setLong(1, Long.valueOf(flightNumber));
         ResultSet rs = db.runPreparedStatementQuery(ps);

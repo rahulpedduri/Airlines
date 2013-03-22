@@ -4,9 +4,19 @@
  */
 package com.airline.controllers;
 
+import com.airline.beans.Bookings;
+import com.airline.beans.Flight;
+import com.airline.beans.Transactions;
 import com.airline.beans.User;
+import com.airline.db.ConnectionParameters;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -47,93 +57,55 @@ public class Transaction extends HttpServlet {
              o Redirects user to the Transaction Confirmation jsp page with flight details and 
              transaction status (Success/Failure). */
             HttpSession session = request.getSession();
-            User user = (User)session.getAttribute("user");
-            if(user == null){
+            User user = (User) session.getAttribute("user");
+            if (user == null) {
                 response.sendRedirect("login.jsp");
             }
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+
+            Object submit = request.getParameter("transaction_submit");
+            Object detailed = request.getParameter("detailed");
+
+
+            if (submit != null && !((String) submit).trim().equals("")) {
+                String account_holder_name = request.getParameter("account_holder_name");
+                String account_number = request.getParameter("account_number");
+                String routing_number = request.getParameter("routing_number");
+
+                Transactions t = new Transactions(user.getUsername(), getServletContext());
+                if (t.validateAccountDetails(account_number, account_holder_name, routing_number)) {
+                    List list = (ArrayList) session.getAttribute("bookings");
+                    int index=0;
+                    Iterator itr = list.iterator();
+                    while (itr.hasNext()) {
+                        Bookings b = (Bookings) itr.next();
+                         if(Flight.seatsAvailable(Integer.valueOf(b.getSeats()), 
+                                 b.getFlightNumber(),  getServletContext())){
+                             if(t.getBalance() >= b.getTotalCost() ){
+                                 b.setAccountId(account_number);
+                                 
+                                 t.setBalance(t.getBalance() - b.getTotalCost());
+                             Flight.flightUpdateBookings(Integer.valueOf(b.getSeats()),
+                                      b.getFlightNumber(), (getServletContext()));
+                             b.save();
+                             list.remove(index);
+                             index++;
+                             }
+                            
+                         }
+                        
+                    }
+
+                }
+            }
+
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Transaction.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Transaction.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(Transaction.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(Transaction.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             out.close();
         }

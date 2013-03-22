@@ -15,7 +15,9 @@
     <body>
         
         <form name ="form" action="reg" method="POST">
-        <a href="Login?logout=true><button type="button" value="logout" name="logout" align="right">Logout</button></a>    
+       <a href="Login?logout=true">Logout</a>    
+        <a href="flight_search_query.jsp">Home</a>  
+             <a href="Handle?booking_history=true">Booking History</a>    
             <table border="1" cellpadding="2" align="center">
             <thead>
                 <tr>

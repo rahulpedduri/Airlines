@@ -183,6 +183,28 @@ public class Flight  implements Serializable{
             this.setDestination(rs.getString("destination"));
         
         }
+        
+     }
+     public Flight(Database db,String flightId)
+            throws ClassNotFoundException, SQLException,
+            InstantiationException, IllegalAccessException {
+        
+         PreparedStatement ps = db.getPreparedStatement(GET_FLIGHT);
+         ps.setInt(1, Integer.valueOf(flightId));
+          ResultSet rs = db.runPreparedStatementQuery(ps);
+          if(rs.next()){
+            this.setFlightNumber(rs.getString("flightnumber"));
+            this.setCost(rs.getDouble("cost"));
+            this.setSeatsTotal(rs.getInt("seats_total"));
+            this.setSeatsTaken(rs.getInt("seats_taken"));
+            this.setOperator(rs.getString("operator"));
+            this.setDepartureTime(rs.getString("departure_time"));
+            this.setArrivalTime(rs.getString("arrival_time"));
+            this.setCls(rs.getString("class"));
+            this.setSource(rs.getString("source"));
+            this.setDestination(rs.getString("destination"));
+        
+        }
     }
 
     public String getCls() {

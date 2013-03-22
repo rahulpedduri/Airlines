@@ -25,7 +25,9 @@
     <body>
 
         <form name ="form" action="ViewAndBook" method="POST"> 
-            <a href="Login?logout=true><button type="button" value="logout" name="logout" align="right">Logout</button></a>    
+           <a href="Login?logout=true">Logout</a>    
+            <a href="flight_search_query.jsp">Home</a>  
+             <a href="Handle?booking_history=true">Booking History</a>    
             <h3>View Flights:</h3>
             <table border="1" cellpadding="10" align="center">
                 <tr>

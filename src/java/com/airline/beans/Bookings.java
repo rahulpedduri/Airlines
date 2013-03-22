@@ -12,6 +12,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletContext;
 
 /**
@@ -30,8 +32,11 @@ public class Bookings  implements Serializable{
     private String username;
     private String AccountId;
     private String Date;
+    private Flight flight;
     private Database db;
-    private static final String GET_BOOKING_HISTORY = "select * from bookings where niner_id= ? ";
+    private static final String GET_BOOKING_HISTORY = "select * from bookings "
+            + "left join flights on bookings.flightId=flights.flightnumber "
+            + "where niner_id= ? ";
     private static final String SAVE_TO_DATABASE = "INSERT INTO bookings "
             + "(BOOKINGID, niner_id, FLIGHTID, DATE, NUMBEROFSEATS, ACCOUNTID, TOTALCOST) "
             + "	VALUES (?, ?, ?, sysdate, ?, ?, ?)";
@@ -76,6 +81,16 @@ public class Bookings  implements Serializable{
             booking.setSeats(rs.getString("NUMBEROFSEATS"));
             booking.setTotalCost(rs.getDouble("TOTALCOST"));
             booking.setSeats(rs.getString("niner_id"));
+            try {
+                flight = new Flight(db,booking.getFlightNumber());
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Bookings.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (InstantiationException ex) {
+                Logger.getLogger(Bookings.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IllegalAccessException ex) {
+                Logger.getLogger(Bookings.class.getName()).log(Level.SEVERE, null, ex);
+            }
+             booking.setFlight(flight);  
 
             bookingHistory.add(booking);
         }
@@ -89,7 +104,12 @@ public class Bookings  implements Serializable{
             InstantiationException, IllegalAccessException {
         db = Database.getConnection(ConnectionParameters.getConnectionParameters(context));
     }
-
+    public void setFlight(Flight flight) {
+        this.flight=flight;
+    }
+public Flight getFlight() {
+        return flight;
+    }
     public String getFlightNumber() {
         return flightNumber;
     }

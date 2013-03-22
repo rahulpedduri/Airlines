@@ -16,7 +16,7 @@
     <body>
         
         <h3 class="error login">${message["login.fail"]}</h3>
-        <form action="login" method="POST">
+        <form action="Login" method="POST">
             
             <div>
             <label for="username">Username</label>

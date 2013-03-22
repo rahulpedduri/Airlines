@@ -4,6 +4,7 @@
  */
 package com.airline.controllers;
 
+import com.airline.beans.Bookings;
 import com.airline.beans.Flight;
 import com.airline.beans.User;
 import java.io.IOException;
@@ -23,6 +24,7 @@ public class Handle extends HttpServlet {
 
     private static final String QUERY_REULTS = "UserLevel/flight_search_results.jsp";
     private static final String DETAILED_VIEW = "UserLevel/view_and_book.jsp";
+    private static final String BOOKING_HISTORY = "UserLevel/booking_history.jsp";
 
     /**
      * Processes requests for both HTTP
@@ -46,6 +48,8 @@ public class Handle extends HttpServlet {
             }
             Object flight_search_query = request.getParameter("flight_search_submit");
             Object detailed = request.getParameter("detailed");
+            Object bookingHistory = request.getParameter("booking_history");
+            
             Flight flight;
 
             if (flight_search_query != null && !((String) flight_search_query).trim().equals("")) {
@@ -70,7 +74,15 @@ public class Handle extends HttpServlet {
                 request.getRequestDispatcher(DETAILED_VIEW).forward(request, response);
 
             }
-
+             if (bookingHistory != null && !((String) bookingHistory).trim().equals("")
+                    && ((String) bookingHistory).trim().equalsIgnoreCase("true")) {
+                 Bookings b = new Bookings(getServletContext());
+                 session = request.getSession();
+                 User u = (User) session.getAttribute("user");
+                 ArrayList list= b.getBookingHistory(u.getUsername());
+                 request.setAttribute("booking_history", list);
+                request.getRequestDispatcher(DETAILED_VIEW).forward(request, response);
+             }
 
         } catch (Exception e) {
         } finally {

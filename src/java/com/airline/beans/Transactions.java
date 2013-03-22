@@ -6,6 +6,7 @@ package com.airline.beans;
 
 import com.airline.db.ConnectionParameters;
 import com.airline.db.Database;
+import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,7 +16,7 @@ import javax.servlet.ServletContext;
  *
  * @author Phani Rahul
  */
-public class Transactions {
+public class Transactions  implements Serializable{
 
     private static final double INITIAL_BALANCE = 10000;
     private String persistAccountNo;

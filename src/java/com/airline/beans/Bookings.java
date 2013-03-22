@@ -6,6 +6,7 @@ package com.airline.beans;
 
 import com.airline.db.ConnectionParameters;
 import com.airline.db.Database;
+import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,7 +18,7 @@ import javax.servlet.ServletContext;
  *
  * @author Phani Rahul
  */
-public class Bookings {
+public class Bookings  implements Serializable{
     //TODO:
     // Reads booking history from the database
     // Adds new bookings to the database 

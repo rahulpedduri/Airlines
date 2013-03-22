@@ -8,6 +8,7 @@ import com.airline.db.ConnectionParameters;
 import com.airline.db.Database;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,7 +22,7 @@ import javax.servlet.ServletContext;
  * @author Phani Rahul
  *
  */
-public class User {
+public class User implements Serializable{
 
     private String username;
     private String password;

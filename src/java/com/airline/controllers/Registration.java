@@ -4,14 +4,12 @@
  */
 package com.airline.controllers;
 
+import com.airline.beans.Transactions;
 import com.airline.beans.User;
 import com.airline.db.ConnectionParameters;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -33,8 +31,8 @@ public class Registration extends HttpServlet {
     private String phone;
     private String email;
     private User user;
+    Transactions acc;
     private HashMap messages;
-    private static final double INITIAL_BALANCE=10000;
 
     /**
      * Processes requests for both HTTP. This especially handles the
@@ -78,6 +76,8 @@ public class Registration extends HttpServlet {
                     //todo: check if username already exists
                     if (!User.checkUsernameExists(username, ConnectionParameters.getConnectionParameters(getServletContext()))) {
                         user = new User(getServletContext());
+                        acc = new Transactions(username,getServletContext());
+                        acc.setPersistUsername(username);
                         user.setUsername(username);
                     } else {
                         flag = false;
@@ -99,9 +99,21 @@ public class Registration extends HttpServlet {
                     if (checkString(email) && flag) {
                         user.setEmail(email);
                     }
+                    
+                    if (checkString(account_no) && flag) {
+                        acc.setPersistAccountNo(account_no);
+                    }
+                     if (checkString(holder_name) && flag) {
+                        acc.setPersistHolderName(holder_name);
+                    }
+                      if (checkString(routing_no) && flag) {
+                        acc.setPersistRoutingNo(routing_no);
+                    }
+                    
                 }
                 if (flag) {
-                    flag = user.save();
+                    flag = user.save() && acc.save();
+                    
                 }
                 if (!flag) {
                     request.setAttribute("message", messages);

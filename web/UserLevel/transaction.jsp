@@ -14,10 +14,11 @@
     </head>
     <body>
         
-        <form name ="form" action="reg" method="POST">
+        <form name ="form" action="../Transaction" method="POST">
        <a href="Login?logout=true">Logout</a>    
-        <a href="flight_search_query.jsp">Home</a>  
-             <a href="Handle?booking_history=true">Booking History</a>    
+        <a href="UserLevel/flight_search_query.jsp">Home</a>  
+             <a href="Handle?booking_history=true">Booking History</a> 
+             
         <table border="1" cellpadding="2" align="center" bgcolor="#FFFAF0">
             <thead>
                 <tr>
@@ -37,6 +38,11 @@
                 <c:forEach items="${sessionScope[name]}" var="booking">
                 <tr>
                     <td>${booking.flightNumber}</td>
+                    <td>${booking.flight.operator}</td>
+                    <td>${booking.flight.source}</td>
+                    <td>${booking.flight.destination}</td>
+                    <td>${booking.flight.cost}</td>
+                    <td>${booking.flight.cls}</td>
                     <%-- TODO remaining values to be populated --%>
                 </tr>
                 </c:forEach>
@@ -61,7 +67,7 @@
             </div>
             
            <button type="submit" value="confirm" name="transaction_submit">confirm</button>
-            <a href="flight_search_query.jsp"><button type="button" value="cancel" name="cancel">cancel</button></a>
+            <a href="flight_search_query.jsp"><button type="button" value="cancel" name="cancel">Continue shopping/button></a>
             
             
         </form>

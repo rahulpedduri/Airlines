@@ -15,9 +15,9 @@
     <body>
         
         <form name ="form" action="reg" method="POST">
-       <a href="Login?logout=true">Logout</a>    
+       <a href="../Login?logout=true">Logout</a>    
         <a href="flight_search_query.jsp">Home</a>  
-             <a href="Handle?booking_history=true">Booking History</a>    
+             <a href="../Handle?booking_history=true">Booking History</a>    
             <table border="1" cellpadding="2" align="center">
             <thead>
                 <tr>
@@ -31,15 +31,18 @@
                 </tr>
             </thead>
             <tbody>
+                <c:set var="name" value="bookings" />
+                <c:forEach items="${sessionScope[name]}" var="booking">
                 <tr>
-                    <td>${flight.flightNumber}</td>
-                    <td>${flight.operator}</td>
-                    <td>${flight.source}</td>
-                    <td>${flight.destination}</td>
-		    <td>${flight.cost}</td>
-		    <td>${flight.cls}</td>
+                    <td>${booking.flightNumber}</td>
+                    <td>${booking.flight.operator}</td>
+                    <td>${booking.flight.source}</td>
+                    <td>${booking.flight.destination}</td>
+                    <td>${booking.flight.cost}</td>
+                    <td>${booking.flight.cls}</td>
+                    <%-- TODO remaining values to be populated --%>
                 </tr>
-            </tbody>
+                </c:forEach>          </tbody>
         </table>
         
         <h1>Booking Confirmed!</h1>

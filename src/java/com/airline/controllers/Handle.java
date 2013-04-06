@@ -81,10 +81,11 @@ public class Handle extends HttpServlet {
                  User u = (User) session.getAttribute("user");
                  ArrayList list= b.getBookingHistory(u.getUsername());
                  request.setAttribute("booking_history", list);
-                request.getRequestDispatcher(DETAILED_VIEW).forward(request, response);
+                request.getRequestDispatcher(BOOKING_HISTORY).forward(request, response);
              }
 
         } catch (Exception e) {
+            System.out.println("Exception: "+ e);
         } finally {
             out.close();
         }

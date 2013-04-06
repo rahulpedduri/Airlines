@@ -29,7 +29,7 @@ public class Transactions  implements Serializable{
     private static final String VERIFY_QUERY = "select * from accounts"
             + " where accountId=? and holderName=? and routingNumber=? and username=?";
     private static final String GET_BALANCE = "select balance from accounts where username=?";
-    private static final String SET_BALANCE = "update accounts set balance=?";
+    private static final String SET_BALANCE = "update accounts set balance=? where username=?";
     private static final String INSERT_NEW_ACC = "INSERT INTO accounts"
             + "(ACCOUNTID, HOLDERNAME, ROUTINGNUMBER, BALANCE, USERNAME)"
             + "VALUES (?, ?, ?, ?, ?)";
@@ -70,7 +70,8 @@ public class Transactions  implements Serializable{
     public void setBalance(double balance) throws SQLException {
         this.balance = balance;
         PreparedStatement ps = db.getPreparedStatement(SET_BALANCE);
-        ps.setString(1, this.username);
+        ps.setDouble(1, balance);
+        ps.setString(2, this.username);
         db.runPreparedStatementUpdate(ps);
 
     }

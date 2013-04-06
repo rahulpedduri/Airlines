@@ -23,11 +23,10 @@
     <body>
         <body>
         <form name ="form" action="../Handle" method="GET">
-            <a href="Login?logout=true">Logout</a>    
+            <a href="../Login?logout=true">Logout</a>    
              <a href="flight_search_query.jsp">Home</a>  
-             <a href="Handle?booking_history=true">Booking History</a>    
-            <a href="booking_history.jsp"><button type="button" value="history" name="history">Booking History</button></a>
-        
+             <a href="../Handle?booking_history=true">Booking History</a>    
+            
             <h3>Available Flights</h3>
              <div>
              <label for="Source">Source</label>

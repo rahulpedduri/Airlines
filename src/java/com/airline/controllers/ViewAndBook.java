@@ -56,6 +56,7 @@ public class ViewAndBook extends HttpServlet {
                 
                 Bookings booking = new Bookings(getServletContext());
                 booking.setFlightNumber(flightNumber);
+                booking.addFlightToBean();
                 booking.setSeats(seats);
                 booking.setTotalCost(totalCost);
                 booking.setUsername(((User)session.getAttribute("user")).getUsername());

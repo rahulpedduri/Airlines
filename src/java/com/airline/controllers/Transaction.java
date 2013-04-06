@@ -87,16 +87,21 @@ public class Transaction extends HttpServlet {
                              Flight.flightUpdateBookings(Integer.valueOf(b.getSeats()),
                                       b.getFlightNumber(), (getServletContext()));
                              b.save();
-                             list.remove(index);
-                             index++;
+                             
                              }
                             
                          }
                         
                     }
-
+                    list.clear();
+                    response.sendRedirect("UserLevel/transaction_confirmation.jsp");
+                    
                 }
+                //response.sendRedirect("UserLevel/booking_history.jsp");
             }
+             if (detailed != null && !((String) detailed).trim().equals("")) {
+                 
+             }
 
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Transaction.class.getName()).log(Level.SEVERE, null, ex);

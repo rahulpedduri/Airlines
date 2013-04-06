@@ -16,7 +16,7 @@
         
         <form name ="form" action="reg" method="POST">
        <a href="Login?logout=true">Logout</a>    
-        <a href="flight_search_query.jsp">Home</a>  
+        <a href="UserLevel/flight_search_query.jsp">Home</a>  
              <a href="Handle?booking_history=true">Booking History</a>    
         <h3>Search Flights</h3>
             

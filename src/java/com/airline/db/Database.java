@@ -4,6 +4,7 @@
  */
 package com.airline.db;
 
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -14,8 +15,9 @@ import java.sql.SQLException;
  *
  * @author Phani Rahul
  */
-public class Database {
+public class Database implements Serializable{
 
+   
     private Connection conn;
     private ConnectionParameters connectionParameters;
     private PreparedStatement ps;
@@ -29,7 +31,7 @@ public class Database {
         return connectionParameters;
     }
     
-
+//jdbc:oracle:thin:@localhost:1521:XE
     public static Database getConnection(ConnectionParameters cp)
             throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
 

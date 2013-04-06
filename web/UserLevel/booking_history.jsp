@@ -3,7 +3,7 @@
     Created on : Feb 12, 2013, 4:02:44 PM
     Author     : Phani Rahul
 --%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -17,7 +17,7 @@
         
         <form name ="form" action="reg" method="POST">
            <a href="Login?logout=true">Logout</a>    
-            <a href="flight_search_query.jsp">Home</a>  
+            <a href="UserLevel/flight_search_query.jsp">Home</a>  
              <a href="Handle?booking_history=true">Booking History</a>    
             
             <h3>Booking History</h3>
@@ -36,7 +36,7 @@
             <tbody>
                 <c:forEach var="booking" items="${booking_history}">
                 <tr>
-                    <td>${booking.flightNumber}</td>
+                    <td>${booking.bookingId}</td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -49,7 +49,7 @@
         </table>
         
             <div class="submit">
-            <a href="flight_search_query.jsp"><button type="button" value="home" name="home">Home</button></a>
+            <a href="UserLevel/flight_search_query.jsp"><button type="button" value="home" name="home">Home</button></a>
             </div>
             
         </form>

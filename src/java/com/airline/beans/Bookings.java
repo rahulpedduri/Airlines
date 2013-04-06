@@ -38,8 +38,8 @@ public class Bookings  implements Serializable{
             + "left join flights on bookings.flightId=flights.flightnumber "
             + "where niner_id= ? ";
     private static final String SAVE_TO_DATABASE = "INSERT INTO bookings "
-            + "(BOOKINGID, niner_id, FLIGHTID, DATE, NUMBEROFSEATS, ACCOUNTID, TOTALCOST) "
-            + "	VALUES (?, ?, ?, sysdate, ?, ?, ?)";
+            + "(BOOKINGID, niner_id, FLIGHTID,  NUMBEROFSEATS, ACCOUNTID, TOTALCOST) "
+            + "	VALUES (?, ?, ?,  ?, ?, ?)";
     private static final String NEXT_SEQ = "select booking_sequence_no.NEXTVAL from dual";
 
     public boolean save() throws SQLException {
@@ -54,7 +54,7 @@ public class Bookings  implements Serializable{
         ps.setString(2, username);
         ps.setString(3, flightNumber);
         ps.setInt(4, seats);
-        ps.setString(5, AccountId);
+        ps.setLong(5, Long.valueOf(AccountId));
         ps.setDouble(6, totalCost);
         int rs = db.runPreparedStatementUpdate(ps);
         if (rs > 0) {
@@ -62,6 +62,10 @@ public class Bookings  implements Serializable{
         } else {
             return false;
         }
+    }
+    public void addFlightToBean() 
+            throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException{
+        flight = new Flight(db, flightNumber);
     }
 
     public ArrayList<Bookings> getBookingHistory(String username) throws SQLException {
@@ -71,6 +75,7 @@ public class Bookings  implements Serializable{
         Bookings booking;
         ArrayList<Bookings> bookingHistory;
         bookingHistory = new ArrayList<Bookings>();
+        
         while (rs.next()) {
             booking = new Bookings();
             //BOOKINGID, "niner_id", FLIGHTID, "DATE", NUMBEROFSEATS, ACCOUNTID, TOTALCOST) 
@@ -80,7 +85,7 @@ public class Bookings  implements Serializable{
             booking.setFlightNumber(rs.getString("FLIGHTID"));
             booking.setSeats(rs.getString("NUMBEROFSEATS"));
             booking.setTotalCost(rs.getDouble("TOTALCOST"));
-            booking.setSeats(rs.getString("niner_id"));
+            booking.setUsername(rs.getString("niner_id"));
             try {
                 flight = new Flight(db,booking.getFlightNumber());
             } catch (ClassNotFoundException ex) {
@@ -94,7 +99,7 @@ public class Bookings  implements Serializable{
 
             bookingHistory.add(booking);
         }
-        return null;
+        return bookingHistory;
     }
 
     public Bookings() {}

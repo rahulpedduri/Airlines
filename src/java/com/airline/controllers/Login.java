@@ -27,6 +27,7 @@ public class Login extends HttpServlet {
 
     private final String ON_SUCCESS = "UserLevel/flight_search_query.jsp";
     private final String ON_FAIL = "login.jsp";
+    private final String ON_LOGOUT="login.jsp";
     private String username;
     private String password;
     private User user;
@@ -50,20 +51,18 @@ public class Login extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            boolean cookieMade=false;
-            Cookie[] cookies = request.getCookies();
-            for (int i = 0; i < cookies.length; i++) {
-                Cookie cookie = cookies[i];
-                if ("user".equals(cookie.getName())) {
-                    cookieMade=true;
-                    setSession(request,response, cookie.getValue(), true);
-                }
-            }
+           
           
             Object login = request.getParameter("login_submit");
             Object logout = request.getParameter("logout");
-
-            if (login != null && !((String) login).trim().equals("")) {
+            if (logout != null && !((String) logout).trim().equals("")
+                    && ((String) logout).trim().equals("true")) {
+                if(session!=null)
+                 session.invalidate();
+                response.sendRedirect(ON_LOGOUT);
+                return;
+            }
+            else if (login != null && !((String) login).trim().equals("")) {
                 username = request.getParameter("username");
                 password = request.getParameter("password");
 
@@ -113,12 +112,17 @@ public class Login extends HttpServlet {
                 }
 
             }
-            if (logout != null && !((String) logout).trim().equals("")
-                    && ((String) logout).trim().equals("true")) {
-                session.invalidate();
-                
-
+             boolean cookieMade=false;
+            Cookie[] cookies = request.getCookies();
+            for (int i = 0; i < cookies.length; i++) {
+                Cookie cookie = cookies[i];
+                if ("user".equals(cookie.getName())) {
+                    cookieMade=true;
+                    setSession(request,response, cookie.getValue(), cookieMade);
+                    return;
+                }
             }
+            
 
         } finally {
             out.close();
@@ -132,6 +136,7 @@ public class Login extends HttpServlet {
         if(redirect){
             try {
                 response.sendRedirect(ON_SUCCESS);
+                return;
             } catch (IOException ex) {
                 Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
             }

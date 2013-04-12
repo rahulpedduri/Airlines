@@ -22,6 +22,18 @@ form{
     position:relative;
 }
 
+bank_form{
+    margin:10em auto;
+    background:rgba(255,255,255,0.6);
+    border:8px solid #eee;
+    width:450px;
+    height:auto;
+    border-radius:5px;
+    box-shadow:0 0 10px #4e707c;
+    text-align:left;
+    position:relative;
+}
+
 form div{
     margin:.5em 25px;
     background:#eee;

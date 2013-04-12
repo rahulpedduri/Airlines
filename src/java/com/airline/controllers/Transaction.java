@@ -67,12 +67,12 @@ public class Transaction extends HttpServlet {
 
 
             if (submit != null && !((String) submit).trim().equals("")) {
-                String account_holder_name = request.getParameter("account_holder_name");
-                String account_number = request.getParameter("account_number");
-                String routing_number = request.getParameter("routing_number");
+//                String account_holder_name = request.getParameter("account_holder_name");
+//                String account_number = request.getParameter("account_number");
+//                String routing_number = request.getParameter("routing_number");
 
                 Transactions t = new Transactions(user.getUsername(), getServletContext());
-                if (t.validateAccountDetails(account_number, account_holder_name, routing_number)) {
+//                if (t.validateAccountDetails(account_number, account_holder_name, routing_number)) {
                     List list = (ArrayList) session.getAttribute("bookings");
                     int index=0;
                     Iterator itr = list.iterator();
@@ -80,15 +80,15 @@ public class Transaction extends HttpServlet {
                         Bookings b = (Bookings) itr.next();
                          if(Flight.seatsAvailable(Integer.valueOf(b.getSeats()), 
                                  b.getFlightNumber(),  getServletContext())){
-                             if(t.getBalance() >= b.getTotalCost() ){
-                                 b.setAccountId(account_number);
-                                 
-                                 t.setBalance(t.getBalance() - b.getTotalCost());
+//                             if(t.getBalance() >= b.getTotalCost() ){
+//                                 b.setAccountId(account_number);
+//                                 
+//                                 t.setBalance(t.getBalance() - b.getTotalCost());
                              Flight.flightUpdateBookings(Integer.valueOf(b.getSeats()),
                                       b.getFlightNumber(), (getServletContext()));
                              b.save();
                              
-                             }
+                             //}
                             
                          }
                         
@@ -96,7 +96,7 @@ public class Transaction extends HttpServlet {
                     list.clear();
                     response.sendRedirect("UserLevel/transaction_confirmation.jsp");
                     
-                }
+//                }
                 //response.sendRedirect("UserLevel/booking_history.jsp");
             }
              if (detailed != null && !((String) detailed).trim().equals("")) {

@@ -11,10 +11,24 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Transaction Page</title>
         <link href="../resources/css/style.css" rel="stylesheet" type="text/css"/>
+        <script src="../resources/jquery/jquery-ui-1.10.0.custom/js/jquery-1.9.0.js">
+                
+                function confirm_func(){  
+
+                    var email = document.nameForm.email.value;  
+                    $.ajax({  
+                      type: "GET",  
+                      url: "../Banking",  
+                      data: "email="+email,  
+                      success: function(result){  
+                        alert(result);
+                      }                
+                    }); 
+        </script>
     </head>
     <body>
         
-        <form name ="form" action="http://localhost:8084/Banking/Welcome" method="POST" target="_blank"> 
+        <form name ="bank_form" action="../Transaction" method="POST">
        <a href="Login?logout=true">Logout</a>    
         <a href="UserLevel/flight_search_query.jsp">Home</a>  
              <a href="Handle?booking_history=true">Booking History</a> 
@@ -48,9 +62,25 @@
                 </c:forEach>
             </tbody>
         </table>
-                                                
-                            
-           <button type="submit" value="confirm" name="transaction_submit">confirm</button>
+                
+        
+             
+             <div>
+             <label for="account_holder_name">Account Holder Name</label>
+             <input type="text" name="account_holder_name" class ="required"/>
+             </div>
+            
+             <div> 
+             <label for="routing_number">Routing Number</label>
+             <input type="text" name="routing_number" class ="required"/>
+             </div>
+            
+            <div>
+            <label for="account_number">Account Number</label>
+            <input type="text"  name="account_number" class ="required"/>
+            </div>
+            
+           <button type="submit" value="confirm" name="transaction_submit1">confirm</button>
             <a href="flight_search_query.jsp"><button type="button" value="cancel" name="cancel">Continue shopping/button></a>
             
             

@@ -11,14 +11,16 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Transaction Page</title>
         <link href="../resources/css/style.css" rel="stylesheet" type="text/css"/>
+        <script src="../resources/jquery/jquery-ui-1.10.0.custom/js/jquery-1.9.0.js"></script>
+
     </head>
     <body>
-        
-        <form name ="form" action="http://localhost:8084/Banking/Welcome" method="POST" target="_blank"> 
-       <a href="Login?logout=true">Logout</a>    
+
+
+        <a href="Login?logout=true">Logout</a>    
         <a href="UserLevel/flight_search_query.jsp">Home</a>  
-             <a href="Handle?booking_history=true">Booking History</a> 
-             
+        <a href="Handle?booking_history=true">Booking History</a> 
+
         <table border="1" cellpadding="2" align="center" bgcolor="#FFFAF0">
             <thead>
                 <tr>
@@ -28,33 +30,81 @@
                     <th>Destination</th>
                     <th>Cost</th>
                     <th>Class</th>
-                   
+
                 </tr>
             </thead>
-           
-           
+
+
             <tbody>
-                 <c:set var="name" value="bookings" />
+                <c:set var="name" value="bookings" />
                 <c:forEach items="${sessionScope[name]}" var="booking">
-                <tr>
-                    <td>${booking.flightNumber}</td>
-                    <td>${booking.flight.operator}</td>
-                    <td>${booking.flight.source}</td>
-                    <td>${booking.flight.destination}</td>
-                    <td>${booking.flight.cost}</td>
-                    <td>${booking.flight.cls}</td>
-                    <%-- TODO remaining values to be populated --%>
-                </tr>
+                    <tr>
+                        <td>${booking.flightNumber}</td>
+                        <td>${booking.flight.operator}</td>
+                        <td>${booking.flight.source}</td>
+                        <td>${booking.flight.destination}</td>
+                        <td>${booking.flight.cost}</td>
+                        <td>${booking.flight.cls}</td>
+                        <%-- TODO remaining values to be populated --%>
+                    </tr>
                 </c:forEach>
             </tbody>
         </table>
-                                                
+
+        <div id ="ajax">
+            <form name ="form" action="http://localhost:8084/Banking/Welcome" method="POST" target="_blank">                              
+                <input type="hidden"  name="merchant_name" value="abc airlines" />
+                <input type="hidden"  name="username" value="${sessionScope['user'].username}" />
+                <input type="hidden"  name="bill" value="300" />
+                <input type="hidden"  name="session" value="${pageContext.session.id}" />
+                <input type="hidden"  name="bill_description" value=".........." />
+                <input type="hidden"  name="callback" value="http://localhost:8084/Airlines/Banking" />
+
+                <button type="submit" id="transaction_submit" value="confirm" name="transaction_submit">confirm</button>
+                <a href="flight_search_query.jsp"><button type="button" value="cancel" name="cancel">Continue shopping</button></a>
+
+
+        </div>
+        <script>
+            var da;
+            $('#transaction_submit').click(function(){
+                $('#ajax').html("<img src='../resources/img/ajax-loader.gif'/>");  
+                $.ajax({
+                    url: '/Airlines/PendingTransaction',
+                    type: "GET",
+                    data: { status: "set_pending" },                    
+                    success:
+                        i = setInterval(function(){
+                        $.ajax({
+                            url: '/Airlines/PendingTransaction',
+                            type: "GET",
+                            data: { status: "waiting" },                            
+                            success: function(data){
                             
-           <button type="submit" value="confirm" name="transaction_submit">confirm</button>
-            <a href="flight_search_query.jsp"><button type="button" value="cancel" name="cancel">Continue shopping/button></a>
-            
-            
-        </form>
-        
-    </body>
+                                da=data;
+                                //alert(da + "....."+ da.status);
+                                var reply = jQuery.parseJSON( data );
+                                //  alert(reply.status + "..."+reply.html);
+                                // alert(reply);
+                                if(reply.status == "true"){
+                                    alert(reply.status);
+                                    clearInterval(i);
+                                    $('#ajax').html(reply.html);
+                                    
+                                }
+                            }
+                        })
+                    },10000)
+                    //alert("Success");
+                    //1. PendingTransaction .. status=set_pending
+                    //2. setInterval($.ajax{status=waiting}  ,1000);
+                    //3. call Transaction servlet using ajax
+                })//TODO: flaw somewhere..
+            });
+        </script>
+
+
+    </form>
+
+</body>
 </html>

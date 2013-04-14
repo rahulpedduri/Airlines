@@ -42,7 +42,7 @@ public class Bookings  implements Serializable{
             + "	VALUES (?, ?, ?,  ?, ?, ?)";
     private static final String NEXT_SEQ = "select booking_sequence_no.NEXTVAL from dual";
 
-    public boolean save() throws SQLException {
+    public int save() throws SQLException {
         PreparedStatement ps = db.getPreparedStatement(SAVE_TO_DATABASE);
 
         Statement st = db.getConn().createStatement();
@@ -57,11 +57,7 @@ public class Bookings  implements Serializable{
         ps.setLong(5, Long.valueOf(AccountId));
         ps.setDouble(6, totalCost);
         int rs = db.runPreparedStatementUpdate(ps);
-        if (rs > 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return nextValue;
     }
     public void addFlightToBean() 
             throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException{

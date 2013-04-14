@@ -15,9 +15,8 @@ import java.sql.SQLException;
  *
  * @author Phani Rahul
  */
-public class Database implements Serializable{
+public class Database implements Serializable {
 
-   
     private Connection conn;
     private ConnectionParameters connectionParameters;
     private PreparedStatement ps;
@@ -30,7 +29,7 @@ public class Database implements Serializable{
     public ConnectionParameters getConnectionParameters() {
         return connectionParameters;
     }
-    
+
 //jdbc:oracle:thin:@localhost:1521:XE
     public static Database getConnection(ConnectionParameters cp)
             throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
@@ -47,20 +46,29 @@ public class Database implements Serializable{
 
         return inst;
     }
-     public PreparedStatement getPreparedStatement(String query) throws SQLException{
-      
-            ps=conn.prepareStatement(query,ResultSet.TYPE_SCROLL_INSENSITIVE,
-                    ResultSet.CONCUR_UPDATABLE);
-            return ps;
-        }
-     
-     public ResultSet runPreparedStatementQuery(PreparedStatement ps) throws SQLException{
-         rs= ps.executeQuery();
-         return rs;
-     }
-     public int runPreparedStatementUpdate(PreparedStatement ps) throws SQLException{
-         int ret= ps.executeUpdate();
-         return ret;
-     }
-     
+
+    public PreparedStatement getPreparedStatement(String query) throws SQLException {
+
+        ps = conn.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE,
+                ResultSet.CONCUR_UPDATABLE);
+        return ps;
+    }
+
+    public ResultSet runPreparedStatementQuery(PreparedStatement ps) throws SQLException {
+        rs = ps.executeQuery();
+        return rs;
+    }
+
+    public int runPreparedStatementUpdate(PreparedStatement ps) throws SQLException {
+        int ret = ps.executeUpdate();
+        return ret;
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        conn.close();
+        System.out.println("connection closed");
+        super.finalize();
+
+    }
 }

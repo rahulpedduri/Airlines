@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -133,6 +134,9 @@ public class Login extends HttpServlet {
     private void setSession(HttpServletRequest request, HttpServletResponse response, String username, boolean redirect) {
         session = request.getSession();
         session.setAttribute("user", user);
+        session.setAttribute("status", true);
+        ServletContext context = getServletContext();
+    	context.setAttribute(session.getId(), session);
         if(redirect){
             try {
                 response.sendRedirect(ON_SUCCESS);
@@ -149,6 +153,7 @@ public class Login extends HttpServlet {
         }
         return false;
     }
+        
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

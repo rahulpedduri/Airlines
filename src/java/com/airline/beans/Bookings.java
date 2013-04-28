@@ -38,8 +38,8 @@ public class Bookings  implements Serializable{
             + "left join flights on bookings.flightId=flights.flightnumber "
             + "where niner_id= ? ";
     private static final String SAVE_TO_DATABASE = "INSERT INTO bookings "
-            + "(BOOKINGID, niner_id, FLIGHTID,  NUMBEROFSEATS, ACCOUNTID, TOTALCOST) "
-            + "	VALUES (?, ?, ?,  ?, ?, ?)";
+            + "(BOOKINGID, niner_id, FLIGHTID,  NUMBEROFSEATS, TOTALCOST) "
+            + "	VALUES (?, ?, ?,  ?, ?)";
     private static final String NEXT_SEQ = "select booking_sequence_no.NEXTVAL from dual";
 
     public int save() throws SQLException {
@@ -54,8 +54,8 @@ public class Bookings  implements Serializable{
         ps.setString(2, username);
         ps.setString(3, flightNumber);
         ps.setInt(4, seats);
-        ps.setLong(5, Long.valueOf(AccountId));
-        ps.setDouble(6, totalCost);
+        //ps.setLong(5, Long.valueOf(AccountId));
+        ps.setDouble(5, totalCost);
         int rs = db.runPreparedStatementUpdate(ps);
         return nextValue;
     }

@@ -69,6 +69,15 @@ public class ViewAndBook extends HttpServlet {
                 bookingList.add(booking);
                 session.setAttribute("bookings", bookingList);
                 response.sendRedirect(TRANSACTION);
+                double totalBill;
+                totalBill = totalCost;
+                Object obj = session.getAttribute("bill");
+                if(obj != null){
+                    Double num =(Double)obj;
+                    double previous= Double.valueOf(num);
+                    totalBill += previous;
+                }
+               session.setAttribute("bill", totalBill);
 
             }
         }catch(Exception e){

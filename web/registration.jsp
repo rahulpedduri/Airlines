@@ -65,23 +65,7 @@
             <label for="password1">Retype Password</label>
             <em>*</em><input type="password" name="password1"/>
             </div>
-            
-            
-            <div>
-            <label for="account_no">Account Number</label>
-           <em>*</em><input type="text" name="account_no" value="${param["account_no"]}"/>
-            </div>
-            
-            <div>
-            <label for="holder_name">Account Holder Name</label>
-            <em>*</em><input type="text" name="holder_name" value="${param["holder_name"]}"/>
-            </div>
-            
-            <div>
-            <label for="routing_no">Routing Number</label>
-            <em>*</em><input type="text" name="routing_no" value="${param["routing_no"]}"/>
-            </div>
-            
+             
             <div class ="submit">
             <input type="submit" name="registration_submit" value="Submit"/>
             </div>

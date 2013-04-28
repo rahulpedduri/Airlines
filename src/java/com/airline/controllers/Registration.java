@@ -63,9 +63,9 @@ public class Registration extends HttpServlet {
                 email = request.getParameter("email");
                 phone = request.getParameter("phone");
                 
-                String account_no = request.getParameter("account_no");
-                String holder_name = request.getParameter("holder_name");
-                String routing_no = request.getParameter("routing_no");
+//                String account_no = request.getParameter("account_no");
+//                String holder_name = request.getParameter("holder_name");
+//                String routing_no = request.getParameter("routing_no");
 
                 messages = new HashMap();
 
@@ -76,9 +76,9 @@ public class Registration extends HttpServlet {
                     //todo: check if username already exists
                     if (!User.checkUsernameExists(username, ConnectionParameters.getConnectionParameters(getServletContext()))) {
                         user = new User(getServletContext());
-                        acc = new Transactions(username,getServletContext());
-                        acc.setPersistUsername(username);
-                        user.setUsername(username);
+//                        acc = new Transactions(username,getServletContext());
+//                        acc.setPersistUsername(username);
+//                        user.setUsername(username);
                     } else {
                         flag = false;
                         messages.put("registration.fail", "Username Already Taken");
@@ -100,19 +100,19 @@ public class Registration extends HttpServlet {
                         user.setEmail(email);
                     }
                     
-                    if (checkString(account_no) && flag) {
-                        acc.setPersistAccountNo(account_no);
-                    }
-                     if (checkString(holder_name) && flag) {
-                        acc.setPersistHolderName(holder_name);
-                    }
-                      if (checkString(routing_no) && flag) {
-                        acc.setPersistRoutingNo(routing_no);
-                    }
+//                    if (checkString(account_no) && flag) {
+//                        acc.setPersistAccountNo(account_no);
+//                    }
+//                     if (checkString(holder_name) && flag) {
+//                        acc.setPersistHolderName(holder_name);
+//                    }
+//                      if (checkString(routing_no) && flag) {
+//                        acc.setPersistRoutingNo(routing_no);
+//                    }
                     
                 }
                 if (flag) {
-                    flag = user.save() && acc.save();
+                    flag = user.save();// && acc.save();
                     
                 }
                 if (!flag) {

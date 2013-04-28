@@ -5,8 +5,12 @@
 package com.airline.controllers;
 
 import com.airline.beans.BankResponse;
+import com.airline.beans.Bookings;
+import com.airline.beans.Flight;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Iterator;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -42,7 +46,7 @@ public class PendingTransaction extends HttpServlet {
                 /*sets the session status as pending until the transaction with the bank is cmplete*/
                 if (((String) status).equals("set_pending")) {
 
-                    session.setAttribute("status", false);
+                    session.setAttribute("status", "false");
 
                 } /*checks to see if the status has changed*/ else if (((String) status).equals("waiting")) {
                     /*return json on the status of application*/
@@ -60,8 +64,48 @@ public class PendingTransaction extends HttpServlet {
                         resp.put("status", "true");
 
                         b = (BankResponse) session.getAttribute("bank_response");
+                        ArrayList a = (ArrayList) session.getAttribute("bookings");
+                        Iterator itr = a.iterator();
+                        String ht="";
+                       
                         if (b.isTransaction_status()) {
-                            resp.put("html", "<h1>Sucessform</h1>");
+                             while(itr.hasNext()){
+                            Bookings bo = (Bookings) itr.next();
+                        Flight f = bo.getFlight();
+                        String op = f.getOperator();
+                        String src = f.getSource();
+                        String dest = f.getDestination();
+                        String cls = f.getCls();
+                        
+                            ht  += "<form name =\"sucessform\" id =\"sucessform\" action =\"../Confirmation\" target=\"_blank\">"
+                                    + "            "
+                                    + "<div>"
+                                    + "<label for=\"name\">Full Name</label>"
+                                    + "<em>*</em><input type=\"text\" name=\"name\" />"
+                                    + "</div>"
+                                    + "            "
+                                    + "<div>"
+                                    + "<label for=\"age\">Age</label>"
+                                    + "<em>*</em><input type=\"text\" name=\"age\" />"
+                                    + "</div>"
+                                    + "            "
+                                    + "<div>"
+                                    + "<label for=\"phone\">Gender</label>"
+                                    + "<em>*</em><input type=\"text\" name=\"gender\" />"
+                                    + "</div>"
+                                    + "            "
+                                    +"<input type=\"hidden\"  name=\"Airlines\" value=\"" + op + "\" />"
+                                    +"<input type=\"hidden\"  name=\"Source\" value=\"" + src + "\" />"
+                                    +"<input type=\"hidden\"  name=\"Destination\" value=\"" + dest + "\" />"
+                                    +"<input type=\"hidden\"  name=\"Class\" value=\"" + cls + "\" />"
+                                    +"             "
+                                    + "<div class =\"submit\">"
+                                    + "<input type=\"submit\" name=\"confirmation_submit\" />"
+                                    + "</div>"
+                                    + "            "
+                                    + "</form>";
+                        }
+                            resp.put("html", ht);
                         } else {
                             resp.put("html", "<h1>Transaction Failed!</h1>");
                         }
@@ -69,6 +113,7 @@ public class PendingTransaction extends HttpServlet {
                         //out.print(resp);
                     } else {
                         resp.put("status", "false");
+                       resp.put("html", "<img src='../resources/img/ajax-loader.gif'/>");
                     }
                     out.print(resp);
                 }

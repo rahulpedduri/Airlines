@@ -55,7 +55,7 @@
             <form name ="form" action="http://localhost:8084/Banking/Welcome" method="POST" target="_blank">                              
                 <input type="hidden"  name="merchant_name" value="abc airlines" />
                 <input type="hidden"  name="username" value="${sessionScope['user'].username}" />
-                <input type="hidden"  name="bill" value="300" />
+                <input type="hidden"  name="bill" value="${sessionScope['bill']}" />
                 <input type="hidden"  name="session" value="${pageContext.session.id}" />
                 <input type="hidden"  name="bill_description" value=".........." />
                 <input type="hidden"  name="callback" value="http://localhost:8084/Airlines/Banking" />
@@ -80,14 +80,14 @@
                             type: "GET",
                             data: { status: "waiting" },                            
                             success: function(data){
-                            
+                            //alert("ajax sucess");
                                 da=data;
                                 //alert(da + "....."+ da.status);
                                 var reply = jQuery.parseJSON( data );
                                 //  alert(reply.status + "..."+reply.html);
                                 // alert(reply);
                                 if(reply.status == "true"){
-                                    alert(reply.status);
+                                    //alert(reply.status);
                                     clearInterval(i);
                                     $('#ajax').html(reply.html);
                                     

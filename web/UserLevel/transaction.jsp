@@ -52,7 +52,7 @@
         </table>
 
         <div id ="ajax">
-            <form name ="form" action="http://localhost:8084/Banking/Welcome" method="POST" target="_blank">                              
+            <form name ="form" action="../BankWelcome" method="POST" target="_blank">                              
                 <input type="hidden"  name="merchant_name" value="abc airlines" />
                 <input type="hidden"  name="username" value="${sessionScope['user'].username}" />
                 <input type="hidden"  name="bill" value="${sessionScope['bill']}" />
@@ -62,10 +62,11 @@
 
                 <button type="submit" id="transaction_submit" value="confirm" name="transaction_submit">confirm</button>
                 <a href="flight_search_query.jsp"><button type="button" value="cancel" name="cancel">Continue shopping</button></a>
-
+    </form>
 
         </div>
-        <script>
+
+                 <script>
             var da;
             $('#transaction_submit').click(function(){
                 $('#ajax').html("<img src='../resources/img/ajax-loader.gif'/>");  
@@ -103,8 +104,6 @@
             });
         </script>
 
-
-    </form>
 
 </body>
 </html>

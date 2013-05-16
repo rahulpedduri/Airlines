@@ -58,17 +58,17 @@ public class PendingTransaction extends HttpServlet {
                      */
                     JSONObject resp = new JSONObject();
 
-                    BankResponse b;
+                    boolean b;
                     String stat = (String) session.getAttribute("status");
                     if (stat.equals("true")) {
                         resp.put("status", "true");
 
-                        b = (BankResponse) session.getAttribute("bank_response");
+                        b = ((String) session.getAttribute("transaction_status")).equalsIgnoreCase("true");
                         ArrayList a = (ArrayList) session.getAttribute("bookings");
                         Iterator itr = a.iterator();
                         String ht="";
                        
-                        if (b.isTransaction_status()) {
+                        if (b) {
                              while(itr.hasNext()){
                             Bookings bo = (Bookings) itr.next();
                         Flight f = bo.getFlight();
